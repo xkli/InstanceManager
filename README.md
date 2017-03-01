@@ -1,1 +1,1 @@
-# InstanceManager
+# WXSample
