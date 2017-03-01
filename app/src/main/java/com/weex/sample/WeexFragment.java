@@ -3,6 +3,7 @@ package com.weex.sample;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 
 public class WeexFragment extends Fragment implements IWXRenderListener {
 
+  private static final String TAG = "WXFragment";
 
   private String mBundleUrl;
   private FrameLayout mContainer;
@@ -37,11 +39,14 @@ public class WeexFragment extends Fragment implements IWXRenderListener {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
+    Log.e(TAG, "into--[onAttach]");
   }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Log.e(TAG, "into--[onCreate]");
+
     View view = View.inflate(getActivity(), R.layout.fragment_weex, null);
     mContainer = (FrameLayout) view.findViewById(R.id.fragment_container);
 
@@ -50,7 +55,7 @@ public class WeexFragment extends Fragment implements IWXRenderListener {
     mWXSDKInstance.registerRenderListener(this);
     HashMap<String, Object> options = new HashMap<>();
     options.put(WXSDKInstance.BUNDLE_URL, mBundleUrl);
-    mWXSDKInstance.renderByUrl("Weex Fragment Sample", mBundleUrl,options, null, WXRenderStrategy.APPEND_ASYNC);
+    mWXSDKInstance.renderByUrl("Weex Fragment Sample", mBundleUrl, options, null, WXRenderStrategy.APPEND_ASYNC);
   }
 
   @Override
@@ -59,12 +64,69 @@ public class WeexFragment extends Fragment implements IWXRenderListener {
     if (mContainer.getParent() != null) {
       ((ViewGroup) mContainer.getParent()).removeView(mContainer);
     }
+    Log.e(TAG, "into--[onCreateView]");
     return mContainer;
+  }
+
+  @Override
+  public void onActivityCreated(Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    Log.e(TAG, "into--[onActivityCreated]");
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    Log.e(TAG, "into--[onStart]");
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    Log.e(TAG, "into--[onResume]");
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    Log.e(TAG, "into--[onPause]");
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    Log.e(TAG, "into--[onStop]");
+  }
+
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    Log.e(TAG, "into--[onDestroyView]");
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    Log.e(TAG, "into--[onDestroy]");
   }
 
   @Override
   public void onDetach() {
     super.onDetach();
+    Log.e(TAG, "into--[onDetach]");
+  }
+
+  @Override
+  public void onLowMemory() {
+    super.onLowMemory();
+    Log.e(TAG, "into--[onLowMemory]");
+  }
+
+  @Override
+  public void onTrimMemory(int level) {
+    super.onTrimMemory(level);
+    Log.e(TAG, "into--[onTrimMemory]");
   }
 
   @Override
