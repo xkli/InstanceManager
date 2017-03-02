@@ -1,8 +1,8 @@
 package com.weex.sample;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,12 +121,6 @@ public class WeexFragment extends Fragment implements IWXRenderListener {
   public void onLowMemory() {
     super.onLowMemory();
     Log.e(TAG, "into--[onLowMemory]");
-  }
-
-  @Override
-  public void onTrimMemory(int level) {
-    super.onTrimMemory(level);
-    Log.e(TAG, "into--[onTrimMemory]");
   }
 
   @Override

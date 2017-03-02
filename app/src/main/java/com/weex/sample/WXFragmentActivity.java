@@ -1,11 +1,11 @@
 package com.weex.sample;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -45,13 +45,14 @@ public class WXFragmentActivity extends AppCompatActivity {
       if (!TextUtils.isEmpty(bundleUrl)) {
         mPages.add(bundleUrl);
         mTemps.add(bundleUrl);
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
         if (mPages.size() > MAX_INSTANCE) {
           Fragment fragment = manager.findFragmentByTag(mTemps.remove(0));
           transaction.remove(fragment);
         }
         WeexFragment weexFragment = WeexFragment.newInstance(bundleUrl);
+        transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         transaction.add(R.id.content_fragment, weexFragment, bundleUrl);
         transaction.commit();
       }
@@ -74,13 +75,14 @@ public class WXFragmentActivity extends AppCompatActivity {
       return false;
     }
 
-    FragmentManager manager = getFragmentManager();
+    FragmentManager manager = getSupportFragmentManager();
     Fragment fragment = manager.findFragmentByTag(mPages.remove(mPages.size() - 1));
     FragmentTransaction transaction = manager.beginTransaction();
     transaction.remove(fragment);
     Fragment fragment1 = manager.findFragmentByTag(mPages.get(mPages.size() - 1));
     if (fragment1 == null) {
       WeexFragment weexFragment = WeexFragment.newInstance(mPages.get(mPages.size() - 1));
+      transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
       transaction.add(R.id.content_fragment, weexFragment, mPages.get(mPages.size() - 1));
       transaction.commit();
     }
