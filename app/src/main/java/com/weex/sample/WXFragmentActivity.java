@@ -80,12 +80,14 @@ public class WXFragmentActivity extends AppCompatActivity {
     FragmentTransaction transaction = manager.beginTransaction();
     transaction.remove(fragment);
     Fragment fragment1 = manager.findFragmentByTag(mPages.get(mPages.size() - 1));
-    if (fragment1 == null) {
+    if (fragment1 != null) {
+      transaction.show(fragment1);
+    } else if (fragment1 == null) {
       WeexFragment weexFragment = WeexFragment.newInstance(mPages.get(mPages.size() - 1));
       transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
       transaction.add(R.id.content_fragment, weexFragment, mPages.get(mPages.size() - 1));
-      transaction.commit();
     }
+    transaction.commit();
     return true;
   }
 }
